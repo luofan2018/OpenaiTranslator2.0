@@ -43,12 +43,15 @@ class OpenAIModel(Model):
                 else:
                     raise Exception("Rate limit reached. Maximum attempts exceeded.")
             except openai.APIConnectionError as e:
+                attempts += 1
                 print("The server could not be reached")
                 print(e.__cause__)  # an underlying Exception, likely raised within httpx.            except requests.exceptions.Timeout as e:
             except openai.APIStatusError as e:
+                attempts += 1
                 print("Another non-200-range status code was received")
                 print(e.status_code)
                 print(e.response)
             except Exception as e:
+                attempts += 1
                 raise Exception(f"发生了未知错误：{e}")
         return "", False

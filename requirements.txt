@@ -1,4 +1,5 @@
 openai==1.14.2
+gradio==4.37.1
 pdfplumber
 simplejson
 requests
